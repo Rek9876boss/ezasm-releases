@@ -114,18 +114,15 @@ jobs:
           FULL_JAR_NAME="$(basename $(find target -name '*-full.jar'))"
           BASE_NAME="${FULL_JAR_NAME%-full.jar}"
           VERSION="${BASE_NAME#${ID}-}"
-          APPIMAGE_NAME="${BASE_NAME}-linux.AppImage"
           DEB_NAME="${BASE_NAME}-linux.deb"
           RPM_NAME="${BASE_NAME}-linux.rpm"
           TAR_NAME="${BASE_NAME}-linux.tar.gz"
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
-          echo "appimage_name=${APPIMAGE_NAME}" >> $GITHUB_OUTPUT
           echo "deb_name=${DEB_NAME}" >> $GITHUB_OUTPUT
           echo "rpm_name=${RPM_NAME}" >> $GITHUB_OUTPUT
           echo "tar_name=${TAR_NAME}" >> $GITHUB_OUTPUT
           echo "full_name=${FULL_JAR_NAME}" >> $GITHUB_OUTPUT
           mkdir staging
-          cp ./target/${ID}.AppImage "./staging/${APPIMAGE_NAME}"
           cp ./target/${ID}_*.deb "./staging/${DEB_NAME}"
           cp ./target/${ID}_*.rpm "./staging/${RPM_NAME}"
           cp ./target/${ID}-*.tar.gz "./staging/${TAR_NAME}"
@@ -137,7 +134,6 @@ jobs:
           name: EzASM-${{ steps.stage.outputs.version }}
           tag_name: v${{ steps.stage.outputs.version }}
           files: |
-            ./staging/${{ steps.stage.outputs.appimage_name }}
             ./staging/${{ steps.stage.outputs.rpm_name }} 
             ./staging/${{ steps.stage.outputs.deb_name }}
             ./staging/${{ steps.stage.outputs.tar_name }}

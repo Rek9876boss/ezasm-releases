@@ -138,11 +138,4 @@ jobs:
             ./staging/${{ steps.stage.outputs.deb_name }}
             ./staging/${{ steps.stage.outputs.tar_name }}
             ./staging/${{ steps.stage.outputs.full_name }}
-      
-      - name: Release Homebrew
-        uses: peter-evans/repository-dispatch@v2
-        with:
-          token: ${{ secrets.PAT }}
-          repository: ezasm-org/homebrew-ezasm
-          event-type: release
-          client-payload: '{"version": "${{ steps.stage.outputs.version }}", "jar_sha256": "${{ steps.stage.outputs.jar_sha256 }}"}'
+   
